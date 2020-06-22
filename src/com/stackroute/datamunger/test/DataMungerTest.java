@@ -24,11 +24,11 @@ import com.stackroute.datamunger.query.parser.QueryParameter;
 import com.stackroute.datamunger.query.parser.QueryParser;
 import com.stackroute.datamunger.query.parser.Restriction;
 
-@SuppressWarnings("rawtypes")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DataMungerTest {
 
 	private static Query query;
+
 	private static QueryParser queryParser;
 	private static QueryParameter queryParameter;
 	private String queryString;
@@ -63,17 +63,16 @@ public class DataMungerTest {
 		assertEquals(
 				"testGetFileName(): File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
-		display(queryString, queryParameter);
+
 	}
 
 	@Test
-	public void testgetFileNameNameFailure() {
+	public void testGetFileNameFailure() {
 		queryString = "select * from data/ipl1.csv";
 		queryParameter = queryParser.parseQuery(queryString);
 		assertNotEquals(
-				"testgetFileNameNameFailure(): File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetFileNameFailure(): File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
-		display(queryString, queryParameter);
 	}
 
 	@Test
@@ -88,7 +87,6 @@ public class DataMungerTest {
 		assertArrayEquals(
 				"testGetFields() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
 				expectedFields.toArray(), queryParameter.getFields().toArray());
-		display(queryString, queryParameter);
 	}
 
 	@Test
@@ -98,7 +96,6 @@ public class DataMungerTest {
 		assertNotNull(
 				"testGetFieldsFailure() : Invalid Column / Field values. Please note that the query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
 				queryParameter.getFields());
-		display(queryString, queryParameter);
 	}
 
 	@Test
@@ -119,7 +116,7 @@ public class DataMungerTest {
 		}
 
 		assertEquals(
-				"testGetFieldsAndRestrictions() : File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetFieldsAndRestrictions() : File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
 		assertEquals(
 				"testGetFieldsAndRestrictions() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
@@ -131,7 +128,7 @@ public class DataMungerTest {
 				"testGetFieldsAndRestrictions() : Retrieval of conditions part failed. The conditions part contains starting from where keyword till the next keyword, which is either group by or order by clause. In case of absence of both group by and order by clause, it will contain till the end of the query string. ",
 				true, status);
 
-		display(queryString, queryParameter);
+		
 	}
 
 	@Test
@@ -143,7 +140,6 @@ public class DataMungerTest {
 				"testGetFieldsAndRestrictionsFailure() : Hint: extract the conditions from the query string(if exists). for each condition, we need to capture the following: 1. Name of field, 2. condition, 3. value, please note the query might contain multiple conditions separated by OR/AND operators",
 				restrictions);
 
-		display(queryString, queryParameter);
 	}
 
 	@Test
@@ -197,7 +193,7 @@ public class DataMungerTest {
 		}
 
 		assertEquals(
-				"testGetRestrictionsAndAggregateFunctions() : File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetRestrictionsAndAggregateFunctions() : File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
 		assertEquals(
 				"testGetRestrictionsAndAggregateFunctions() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
@@ -216,7 +212,7 @@ public class DataMungerTest {
 				"testGetRestrictionsAndAggregateFunctions() : Retrieval of Logical Operators failed. AND/OR keyword will exist in the query only if where conditions exists and it contains multiple conditions.The extracted logical operators will be stored in a String array which will be returned by the method. Please note that AND/OR can exist as a substring in the conditions as well. For eg: name='Alexander',color='Red' etc.",
 				logicalop, queryParameter.getLogicalOperators());
 
-		display(queryString, queryParameter);
+		
 	}
 
 	@Test
@@ -256,7 +252,7 @@ public class DataMungerTest {
 		}
 
 		assertEquals(
-				"testGetGroupByOrderByClause() : File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetGroupByOrderByClause() : File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
 		assertEquals(
 				"testGetGroupByOrderByClause() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
@@ -279,7 +275,7 @@ public class DataMungerTest {
 				"testGetGroupByOrderByClause() : Hint: Please note that we will need to extract the field(s) after 'order by' clause in the query, if at all the order by clause exists",
 				orderByFields, queryParameter.getOrderByFields());
 
-		display(queryString, queryParameter);
+		
 
 	}
 
@@ -298,7 +294,7 @@ public class DataMungerTest {
 				"testGetGroupByOrderByClauseFailure() : Hint: extract the conditions from the query string(if exists). for each condition, we need to capture the following: 1. Name of field, 2. condition, 3. value, please note the query might contain multiple conditions separated by OR/AND operators",
 				restrictions);
 
-		display(queryString, queryParameter);
+		
 	}
 
 	@Test
@@ -331,7 +327,7 @@ public class DataMungerTest {
 				"testGetGroupByClause() : Logical Operators should be null. AND/OR keyword will exist in the query only if where conditions exists and it contains multiple conditions.The extracted logical operators will be stored in a String array which will be returned by the method. Please note that AND/OR can exist as a substring in the conditions as well. For eg: name='Alexander',color='Red' etc",
 				null, queryParameter.getLogicalOperators());
 
-		display(queryString, queryParameter);
+		
 
 	}
 
@@ -370,7 +366,7 @@ public class DataMungerTest {
 		}
 
 		assertEquals(
-				"testGetOrderByAndWhereConditionClause() : File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetOrderByAndWhereConditionClause() : File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
 		assertEquals(
 				"testGetOrderByAndWhereConditionClause() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
@@ -389,7 +385,7 @@ public class DataMungerTest {
 				"testGetOrderByAndWhereConditionClause() : Hint: Please note that we will need to extract the field(s) after 'order by' clause in the query, if at all the order by clause exists",
 				orderByFields, queryParameter.getOrderByFields());
 
-		display(queryString, queryParameter);
+		
 
 	}
 
@@ -404,7 +400,7 @@ public class DataMungerTest {
 		assertNotNull(
 				"testGetOrderByAndWhereConditionClauseFailure() :Hint: Please note that we will need to extract the field(s) after 'order by' clause in the query, if at all the order by clause exists.",
 				queryParameter.getOrderByFields());
-		display(queryString, queryParameter);
+		
 	}
 
 	@Test
@@ -421,7 +417,7 @@ public class DataMungerTest {
 		fields.add("player_of_match");
 
 		assertEquals(
-				"testGetOrderByClause() : File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetOrderByClause() : File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
 		assertEquals(
 				"testGetOrderByClause() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
@@ -429,7 +425,7 @@ public class DataMungerTest {
 		assertEquals(
 				"testGetOrderByClause() : Hint: Please note that we will need to extract the field(s) after 'order by' clause in the query, if at all the order by clause exists",
 				orderByFields, queryParameter.getOrderByFields());
-		display(queryString, queryParameter);
+		
 	}
 
 	@Test
@@ -446,7 +442,7 @@ public class DataMungerTest {
 		fields.add("player_of_match");
 
 		assertEquals(
-				"testGetOrderByClause() : File name extraction failed. Check getFileName() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
+				"testGetOrderByClause() : File name extraction failed. Check getFile() method. File name can be found after a space after from clause. Note: CSV file can contain a field that contains from as a part of the column name. For eg: from_date,from_hrs etc",
 				"data/ipl.csv", queryParameter.getFileName());
 		assertEquals(
 				"testGetOrderByClause() : Select fields extractions failed. The query string can have multiple fields separated by comma after the 'select' keyword. The extracted fields is supposed to be stored in a String array which is to be returned by the method getFields(). Check getFields() method",
@@ -455,74 +451,9 @@ public class DataMungerTest {
 				"testGetOrderByClause() : Hint: Please note that we will need to extract the field(s) after 'order by' clause in the query, if at all the order by clause exists",
 				orderByFields, queryParameter.getOrderByFields());
 
-		display(queryString, queryParameter);
 
 	}
 
-	private void display(String queryString, QueryParameter queryParameter) {
-		System.out.println("\nQuery : " + queryString);
-		System.out.println("--------------------------------------------------");
-		System.out.println("Base Query:" + queryParameter.getBaseQuery());
-		System.out.println("File:" + queryParameter.getFileName());
-		System.out.println("Query Type:" + queryParameter.getQUERY_TYPE());
-		List<String> fields = queryParameter.getFields();
-		System.out.println("Selected field(s):");
-		if (fields == null || fields.isEmpty()) {
-			System.out.println("*");
-		} else {
-			for (String field : fields) {
-				System.out.println("\t" + field);
-			}
-		}
-
-		List<Restriction> restrictions = queryParameter.getRestrictions();
-
-		if (restrictions != null && !restrictions.isEmpty()) {
-			System.out.println("Where Conditions : ");
-			int conditionCount = 1;
-			for (Restriction restriction : restrictions) {
-				System.out.println("\tCondition : " + conditionCount++);
-				System.out.println("\t\tName : " + restriction.getPropertyName());
-				System.out.println("\t\tCondition : " + restriction.getCondition());
-				System.out.println("\t\tValue : " + restriction.getPropertyValue());
-			}
-		}
-		List<AggregateFunction> aggregateFunctions = queryParameter.getAggregateFunctions();
-		if (aggregateFunctions != null && !aggregateFunctions.isEmpty()) {
-
-			System.out.println("Aggregate Functions : ");
-			int funtionCount = 1;
-			for (AggregateFunction aggregateFunction : aggregateFunctions) {
-				System.out.println("\t Aggregate Function : " + funtionCount++);
-				System.out.println("\t\t function : " + aggregateFunction.getFunction());
-				System.out.println("\t\t  field : " + aggregateFunction.getField());
-			}
-
-		}
-
-		List<String> orderByFields = queryParameter.getOrderByFields();
-		if (orderByFields != null && !orderByFields.isEmpty()) {
-
-			System.out.println(" Order by fields : ");
-			for (String orderByField : orderByFields) {
-				System.out.println("\t " + orderByField);
-
-			}
-
-		}
-
-		List<String> groupByFields = queryParameter.getGroupByFields();
-		if (groupByFields != null && !groupByFields.isEmpty()) {
-
-			System.out.println(" Group by fields : ");
-			for (String groupByField : groupByFields) {
-				System.out.println("\t " + groupByField);
-
-			}
-
-		}
-
-	}
 
 	/*
 	 * The following test cases are used to check whether the query processing are
@@ -575,7 +506,6 @@ public class DataMungerTest {
 				"testSelectAllWithoutWhereClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testSelectAllWithoutWhereClause", dataSet);
 
 	}
 
@@ -623,7 +553,7 @@ public class DataMungerTest {
 				"testSelectColumnsWithoutWhereClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testSelectColumnsWithoutWhereClause", dataSet);
+	
 
 	}
 
@@ -674,7 +604,7 @@ public class DataMungerTest {
 				"testWithWhereGreaterThanClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereGreaterThanClause", dataSet);
+	
 
 	}
 
@@ -724,7 +654,7 @@ public class DataMungerTest {
 				"testWithWhereLessThanClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereLessThanClause", dataSet);
+		
 
 	}
 
@@ -774,7 +704,7 @@ public class DataMungerTest {
 				"testWithWhereLessThanOrEqualToClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereLessThanOrEqualToClause", dataSet);
+	
 
 	}
 
@@ -824,7 +754,6 @@ public class DataMungerTest {
 				"testWithWhereGreaterThanOrEqualToClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereGreaterThanOrEqualToClause", dataSet);
 
 	}
 
@@ -876,7 +805,6 @@ public class DataMungerTest {
 				"testWithWhereNotEqualToClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereNotEqualToClause", dataSet);
 
 	}
 
@@ -926,7 +854,6 @@ public class DataMungerTest {
 				"testWithWhereEqualAndNotEqualClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereEqualAndNotEqualClause", dataSet);
 
 	}
 
@@ -977,7 +904,6 @@ public class DataMungerTest {
 				"testWithWhereTwoConditionsEqualOrNotEqualClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereTwoConditionsEqualOrNotEqualClause", dataSet);
 
 	}
 
@@ -1027,15 +953,8 @@ public class DataMungerTest {
 				"testWithWhereThreeConditionsEqualOrNotEqualClause() : Total number of records are matching but the records returned does not match the expected data",
 				true, dataexpectedstatus);
 
-		display("testWithWhereThreeConditionsEqualOrNotEqualClause", dataSet);
 
 	}
 
-	private void display(String testCaseName, HashMap dataSet) {
-		System.out.println(testCaseName);
-		System.out.println("================================================================");
-		System.out.println(dataSet);
-
-	}
 
 }
