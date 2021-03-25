@@ -1,9 +1,9 @@
 package com.stackroute.datamunger.query;
 
 /*
- * Implementation of DataTypeDefinitions class. This class contains a method getDataTypes() 
+ * Implementation of DataTypeDefinitions clasinput. This class contains a method getDataTypes() 
  * which will contain the logic for getting the datatype for a given field value. This
- * method will be called from QueryProcessors.   
+ * method will be called from QueryProcessorinput.   
  * In this assignment, we are going to use Regular Expression to find the 
  * appropriate data type of a field. 
  * Integers: should contain only digits without decimal point 
@@ -35,9 +35,25 @@ public class DataTypeDefinitions {
 		
 		// checking for date format yyyy-mm-dd
 		
-		return null;
-	}
-	
+		
+		if(input.matches("[0-9]+")) {
+			return "java.lang.Integer";
+		}
+		
+		else if(input.matches("[0-9]+.[0-9]+")){
+			return "java.lang.Double";
+		}
+		
+		else if(input.isEmpty()) {
+			return "java.lang.Object";
+		}
 
+		else if(input.matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")||input.matches("^[0-9]{2}-[a-z]{3}-[0-9]{2}$")||input.matches("^[0-9]{2}-[a-z]{3}-[0-9]{4}$")||input.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{2}$")||input.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{4}$")||input.matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")){
+			return "java.util.Date";
+		}
+		
+		else
+			return "java.lang.String";
 	
+	}
 }
