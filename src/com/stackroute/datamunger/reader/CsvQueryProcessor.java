@@ -2,12 +2,8 @@ package com.stackroute.datamunger.reader;
 
 import java.util.List;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 import com.stackroute.datamunger.query.DataSet;
 import com.stackroute.datamunger.query.DataTypeDefinitions;
@@ -22,7 +18,7 @@ public class CsvQueryProcessor implements QueryProcessingEngine {
 	 * This method will take QueryParameter object as a parameter which contains the
 	 * parsed query and will process and populate the ResultSet
 	 */
-	public DataSet getResultSet(QueryParameter queryParameter) throws Exception{
+	public DataSet getResultSet(QueryParameter queryParameter) throws Exception {
 
 		/*
 		 * initialize BufferedReader to read from the file which is mentioned in
@@ -64,7 +60,7 @@ public class CsvQueryProcessor implements QueryProcessingEngine {
 		 */
 		RowDataTypeDefinitions rowDataTypeDefinitionMap = new RowDataTypeDefinitions();
 		for(int i=0; i<fields.length;i++) {
-			rowDataTypeDefinitionMap.put(i, (String) DataTypeDefinitions.getDataType(fields[i]));
+			rowDataTypeDefinitionMap.put(i, (String) DataTypeDefinitions.getDataTypes(fields[i]));
 		}
 
 		/*
@@ -168,6 +164,7 @@ public class CsvQueryProcessor implements QueryProcessingEngine {
 				return bools.get(0)|bools.get(1);
 		} else if(bools.size()==3) {
 			int i = operators.indexOf("AND|and");
+
 			if(i<0)
 				return bools.get(0) | bools.get(1) | bools.get(2);
 			else if(i==0)

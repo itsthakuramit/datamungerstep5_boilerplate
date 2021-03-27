@@ -20,20 +20,18 @@ public class JsonWriter {
 		 * Gson to convert resultSet object to JSON
 		 */
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		@SuppressWarnings("unused")
 		String result = gson.toJson(resultSet);
-		
+
 		try {
 			FileWriter writer = new FileWriter("data/json.txt");
-			BufferedWriter buffer = new BufferedWriter(writer);  
-		    buffer.write(result);  
-		    buffer.close();
-		    return true;
-		}
-		catch (IOException e) {
+			BufferedWriter buffer = new BufferedWriter(writer);
+			buffer.write(result);
+			buffer.close();
+			return true;
+		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
-		}  
+		}
 
 		/*
 		 * write JSON string to data/result.json file. As we are performing File IO,

@@ -1,9 +1,9 @@
 package com.stackroute.datamunger.query;
 
 /*
- * Implementation of DataTypeDefinitions clasinput. This class contains a method getDataTypes() 
+ * Implementation of DataTypeDefinitions class. This class contains a method getDataTypes() 
  * which will contain the logic for getting the datatype for a given field value. This
- * method will be called from QueryProcessorinput.   
+ * method will be called from QueryProcessors.   
  * In this assignment, we are going to use Regular Expression to find the 
  * appropriate data type of a field. 
  * Integers: should contain only digits without decimal point 
@@ -14,46 +14,46 @@ package com.stackroute.datamunger.query;
  */
 public class DataTypeDefinitions {
 
-	//method stub
-	public static Object getDataType(String input) {
-	
+
+	public static String getDataTypes(String input) {
+		
 		// checking for Integer
-		
-		// checking for floating point numbers
-		
-		// checking for date format dd/mm/yyyy
-		
-		// checking for date format mm/dd/yyyy
-		
-		// checking for date format dd-mon-yy
-		
-		// checking for date format dd-mon-yyyy
-		
-		// checking for date format dd-month-yy
-		
-		// checking for date format dd-month-yyyy
-		
-		// checking for date format yyyy-mm-dd
-		
-		
-		if(input.matches("[0-9]+")) {
+		if (input.matches("[0-9]+")) {
 			return "java.lang.Integer";
 		}
 		
-		else if(input.matches("[0-9]+.[0-9]+")){
+		// checking for floating point numbers
+		else if (input.matches("[0-9]+.[0-9]+")) {
 			return "java.lang.Double";
 		}
 		
-		else if(input.isEmpty()) {
-			return "java.lang.Object";
-		}
+		// checking for date format dd/mm/yyyy
 
-		else if(input.matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$")||input.matches("^[0-9]{2}-[a-z]{3}-[0-9]{2}$")||input.matches("^[0-9]{2}-[a-z]{3}-[0-9]{4}$")||input.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{2}$")||input.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{4}$")||input.matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")){
+		// checking for date format mm/dd/yyyy
+
+		// checking for date format dd-mon-yy
+
+		// checking for date format dd-mon-yyyy
+
+		// checking for date format dd-month-yy
+
+		// checking for date format dd-month-yyyy
+		
+		// checking for date format yyyy-mm-dd
+		else if (input.matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}$") || input.matches("^[0-9]{2}-[a-z]{3}-[0-9]{2}$")
+				|| input.matches("^[0-9]{2}-[a-z]{3}-[0-9]{4}$") || input.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{2}$")
+				|| input.matches("^[0-9]{2}-[a-z]{3,9}-[0-9]{4}$") || input.matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")) {
 			return "java.util.Date";
 		}
 		
-		else
+		else if (input.isEmpty()) {
+			return "java.lang.Object";
+		}
+		
+		else {
 			return "java.lang.String";
+		}
 	
+
 	}
 }
